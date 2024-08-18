@@ -1,0 +1,10 @@
+<nfeProc>
+	<NFe>
+		<infNFe>
+			<emit>
+				<CNPJ></CNPJ>
+			</emit>
+		<infNFe>
+	</NFe>
+</nfeProc>
+
