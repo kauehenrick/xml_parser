@@ -10,7 +10,24 @@ import (
 
 func main() {
 	dir := "./"
-	novoCNPJ := "49345005000145"
+	novoDest := `<dest>
+<CPF>12345678910</CPF>
+<xNome>PRIQUITO</xNome>
+<enderDest>
+<xLgr>Rua 31 de Maio</xLgr>
+<nro>180</nro>
+<xBairro>Sitio Grande</xBairro>
+<cMun>2928901</cMun>
+<xMun>Sao Desiderio</xMun>
+<UF>BA</UF>
+<CEP>47825000</CEP>
+<cPais>1058</cPais>
+<xPais>Brasil</xPais>
+<fone>77999930046</fone>
+</enderDest>
+<indIEDest>9</indIEDest>
+<email>kauek78942@gmail.com</email>
+</dest>`
 
 	err := filepath.Walk(dir, func(path string, info os.FileInfo, err error) error {
 		if err != nil {
@@ -25,7 +42,7 @@ func main() {
 
 			xmlStr := string(xmlData)
 
-			xmlStr = regexp.MustCompile(`(?s)<dest>\s*<CNPJ>[^<]*</CNPJ>`).ReplaceAllString(xmlStr, `<dest><CNPJ>`+novoCNPJ+`</CNPJ>`)
+			xmlStr = regexp.MustCompile(`(?s)<dest>.*?</dest>`).ReplaceAllString(xmlStr, novoDest)
 
 			xmlStr = regexp.MustCompile(`(?s)<nfeProc([^>]*)>`).ReplaceAllString(xmlStr, `<nfeProc$1 xmlns="http://www.portalfiscal.inf.br/nfe">`)
 			xmlStr = regexp.MustCompile(`(?s)<NFe([^>]*)>`).ReplaceAllString(xmlStr, `<NFe$1 xmlns="http://www.portalfiscal.inf.br/nfe">`)
